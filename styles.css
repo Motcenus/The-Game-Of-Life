@@ -1,45 +1,53 @@
 /* styles.css */
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
 }
 
 .container {
+    margin-left: 200px; /* Space for fixed controls */
     text-align: center;
 }
 
 #grid {
     display: grid;
-    grid-template-columns: repeat(50, 20px);
-    grid-template-rows: repeat(50, 20px);
     gap: 1px;
     margin-bottom: 20px;
 }
 
 .cell {
-    width: 20px;
-    height: 20px;
     background-color: white;
+    box-sizing: border-box;
+    transition: background-color 0.5s ease; /* Smooth transition for background color */
+}
+
+.controls {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 180px; /* Fixed width for controls */
+    background-color: #fff;
     border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure controls are above other content */
+}
+
+.controls button, .controls input {
+    margin: 5px 0;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%; /* Make inputs and buttons fill the width */
     box-sizing: border-box;
 }
 
-.cell.active {
-    background-color: black;
+.controls input[type="number"] {
+    text-align: center;
 }
 
-.controls button {
-    margin: 5px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-input[type="number"] {
-    width: 70px;
-    margin: 5px;
+label {
+    display: block;
+    margin: 5px 0;
+    font-weight: bold;
 }
