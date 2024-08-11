@@ -1,0 +1,45 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(50, 20px);
+    grid-template-rows: repeat(50, 20px);
+    gap: 1px;
+    margin-bottom: 20px;
+}
+
+.cell {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.cell.active {
+    background-color: black;
+}
+
+.controls button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+input[type="number"] {
+    width: 70px;
+    margin: 5px;
+}
