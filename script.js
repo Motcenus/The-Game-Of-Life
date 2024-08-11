@@ -8,6 +8,23 @@ let lastFrameTime = 0;
 let speed = 100; // milliseconds per frame
 let isDrawing = false;
 let isRunning = false;
+let ruleSet = 'classic'; // Default rule set
+
+// Define different rule sets
+const ruleSets = {
+    classic: {
+        isActive: (activeNeighbors) => activeNeighbors.length === 2 || activeNeighbors.length === 3,
+        isInactive: (activeNeighbors) => activeNeighbors.length === 3
+    },
+    highLife: {
+        isActive: (activeNeighbors) => activeNeighbors.length === 2 || activeNeighbors.length === 3,
+        isInactive: (activeNeighbors) => activeNeighbors.length === 3 || activeNeighbors.length === 6
+    },
+    corrupt: {
+        isActive: (activeNeighbors) => activeNeighbors.length === 3,
+        isInactive: (activeNeighbors) => activeNeighbors.length === 2
+    }
+};
 
 function getRandomColor() {
     const r = Math.floor(Math.random() * 256);
@@ -104,9 +121,9 @@ function updateGrid() {
         const activeNeighbors = neighbors.filter(n => newState[n].isActive);
 
         if (newState[i].isActive) {
-            nextState[i].isActive = (activeNeighbors.length === 2 || activeNeighbors.length === 3);
+            nextState[i].isActive = ruleSets[ruleSet].isActive(activeNeighbors);
         } else {
-            nextState[i].isActive = (activeNeighbors.length === 3);
+            nextState[i].isActive = ruleSets[ruleSet].isInactive(activeNeighbors);
         }
 
         if (nextState[i].isActive) {
@@ -166,6 +183,10 @@ function updateSettings() {
     createGrid();
 }
 
+function changeRuleSet() {
+    ruleSet = document.getElementById('ruleSet').value;
+}
+
 document.getElementById('start').addEventListener('click', startSimulation);
 document.getElementById('stop').addEventListener('click', stopSimulation);
 document.getElementById('clear').addEventListener('click', clearGrid);
@@ -175,5 +196,6 @@ document.getElementById('speed').addEventListener('input', (event) => {
 });
 document.getElementById('canvasSize').addEventListener('change', updateSettings);
 document.getElementById('blockSize').addEventListener('change', updateSettings);
+document.getElementById('ruleSet').addEventListener('change', changeRuleSet);
 
 createGrid();
